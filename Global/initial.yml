@@ -40,11 +40,11 @@
       groups: sudo
       append: yes
 
-  - name: Set authorized key taken from file
-    authorized_key:
-      user: arma
-      state: present
-      key: "{{ lookup('file', '.ssh/id_rsa.pub') }}"
+  - name: Set authorized key taken from root
+    copy:
+      src: /root/.ssh/authorized_keys
+      dest: /home/arma/.ssh/authorized_keys
+      remote_src: yes
 
   - name: Add the user 'teamspeak' with a bash shell, appending the group 'sudo' to the user's groups
     user:
@@ -53,8 +53,8 @@
       groups: sudo
       append: yes
 
-  - name: Set authorized key taken from file
-    authorized_key:
-      user: teamspeak
-      state: present
-      key: "{{ lookup('file', '.ssh/id_rsa.pub') }}"
+  - name: Set authorized key taken from root
+    copy:
+      src: /root/.ssh/authorized_keys
+      dest: /home/teamspeak/.ssh/authorized_keys
+      remote_src: yes
