@@ -16,4 +16,4 @@ jobs:
 
       - run:
           name: Provision the server
-          command: ansible-playbook -vvvvv -i ./hosts Global/initial.yml Arma/server.yml Teamspeak/server.yml --vault-password-file=.vault_pass.py
+          command: ansible-playbook -i ./hosts Global/initial.yml Arma/server.yml Teamspeak/server.yml --vault-password-file=.vault_pass.py
