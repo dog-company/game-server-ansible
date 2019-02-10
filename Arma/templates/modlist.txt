@@ -1,0 +1,8 @@
+@ShutdownOnFailedCommand 1 //set to 0 if updating multiple servers at once
+@NoPromptForPassword 1
+login {{ steam_user }} {{ steam_pass }}
+force_install_dir /home/arma/Steam/workshop/
+{% for mod in mods %}
+workshop_download_item 107410 {{mod}}
+{% endfor %}
+quit

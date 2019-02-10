@@ -1,0 +1,46 @@
+---
+- hosts: game
+  remote_user: teamspeak
+  tasks:
+
+  - name: Install TS3 requirements
+    become: yes 
+    apt: 
+      name: "{{ packages }}"
+      update_cache: yes
+    vars: 
+      packages:
+      - mailutils 
+      - postfix 
+      - curl 
+      - wget 
+      - file 
+      - bzip2 
+      - gzip 
+      - unzip 
+      - bsdmainutils 
+      - python 
+      - util-linux 
+      - ca-certificates 
+      - binutils 
+      - bc 
+      - jq 
+      - mariadb-common
+
+  - name: Download linuxgsm installer
+    get_url:
+      url: https://linuxgsm.sh
+      dest: /home/teamspeak/linuxgsm.sh
+      mode: 0755
+
+  - name: Install linuxgsm
+    command: /home/teamspeak/linuxgsm.sh ts3server
+    args:
+      chdir: /home/teamspeak
+      creates: /home/teamspeak/ts3server
+
+  - name: Install TS 3  
+    command: /home/teamspeak/ts3server ai
+    args:
+      chdir: /home/teamspeak
+      creates: /home/teamspeak/serverfiles

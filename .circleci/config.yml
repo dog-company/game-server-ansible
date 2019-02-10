@@ -1,0 +1,16 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: williamyeh/ansible:ubuntu18.04
+
+    steps:
+      - checkout
+
+      - run:
+          name: Chmod .vault_pass.py
+          command: chmod 0755 .vault_pass.py
+
+      - run:
+          name: Provision the server
+          command: ansible-playbook -i ./hosts Global/initial.yml Arma/server.yml Teamspeak/server.yml --vault-password-file=.vault_pass.py

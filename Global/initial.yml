@@ -1,0 +1,60 @@
+# Add this snippet to the top of your playbook. 
+# It will install python2 if missing (but checks first so no expensive repeated apt updates)
+# gwillem@gmail.com
+
+- hosts: all
+  gather_facts: False
+  remote_user: root
+  
+  tasks:
+  - name: Check if i386 is enabled
+    shell: dpkg --print-foreign-architectures | grep i386
+    register: result_i386_check
+    changed_when: result_i386_check.rc == 1
+    failed_when: result_i386_check.rc > 1
+
+  - name: Enable i386 architecture
+    command: dpkg --add-architecture i386
+    when: result_i386_check.rc == 1
+
+  - name: Ensure apt cache is up to date
+    apt: update_cache=yes
+    when: result_i386_check.rc == 1
+
+  - name: Ensure that sudo is installed
+    apt: 
+      name: sudo
+
+  - name: Ensure sudo doesnt require a password
+    lineinfile:   
+      path: /etc/sudoers
+      state: present
+      regexp: '^%sudo'
+      line: '%sudo ALL=(ALL) NOPASSWD: ALL'
+      validate: 'visudo -cf %s'
+
+  - name: Add the user 'arma' with a bash shell, appending the group 'sudo' to the user's groups
+    user:
+      name: arma
+      shell: /bin/bash
+      groups: sudo
+      append: yes
+
+  - name: Set authorized key taken from file
+    authorized_key:
+      user: arma
+      state: present
+      key: "{{ lookup('file', '/home/josh/.ssh/id_rsa.pub') }}"
+
+  - name: Add the user 'teamspeak' with a bash shell, appending the group 'sudo' to the user's groups
+    user:
+      name: teamspeak
+      shell: /bin/bash
+      groups: sudo
+      append: yes
+
+  - name: Set authorized key taken from file
+    authorized_key:
+      user: teamspeak
+      state: present
+      key: "{{ lookup('file', '/home/josh/.ssh/id_rsa.pub') }}"

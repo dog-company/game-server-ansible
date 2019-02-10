@@ -1,0 +1,4 @@
+dog-company.org ansible_python_interpreter=/usr/bin/python3
+
+[game]
+dog-company.org ansible_python_interpreter=/usr/bin/python3

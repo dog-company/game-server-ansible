@@ -1,0 +1,165 @@
+---
+- hosts: game
+  remote_user: arma
+  vars:
+    mods:
+      - 843425103
+      - 843577117
+      - 861133494
+      - 450814997
+      - 463939057
+      - 843593391
+      - 945476727
+      - 1180533757
+      - 843632231
+      - 773131200
+      - 773125288
+      - 884966711
+      - 583496184
+      - 1136518526
+      - 1185836585
+      - 708250744
+      - 723217262
+      - 620260972
+      - 820924072
+      - 767380317
+      - 667953829
+      - 1375890861
+      - 583544987
+      - 853743366
+      - 1435263885
+      - 366425329
+      - 1227179728
+      - 537154025
+      - 582478120
+      - 366423278
+      - 743099837
+      - 708278910
+      - 1180534892
+      - 1486541773
+      - 779520435
+      - 735566597
+      - 1207709270
+      - 620019431
+      - 643530417
+      - 721359761
+
+  tasks:
+  - name: Install Arma requirements
+    become: yes 
+    apt: 
+      name: "{{ packages }}"
+      update_cache: yes
+    vars: 
+      packages:
+      - mailutils 
+      - postfix 
+      - curl 
+      - wget 
+      - file 
+      - bzip2 
+      - gzip 
+      - unzip 
+      - bsdmainutils 
+      - python 
+      - util-linux 
+      - ca-certificates 
+      - binutils 
+      - bc 
+      - jq 
+      - tmux 
+      - lib32gcc1 
+      - libstdc++6 
+      - libstdc++6:i386
+      - git
+      - rename
+
+  - name: Download linuxgsm installer
+    get_url:
+      url: https://linuxgsm.sh
+      dest: /home/arma/linuxgsm.sh
+      mode: 0755
+
+  - name: Install linuxgsm
+    command: /home/arma/linuxgsm.sh arma3server
+    args:
+      chdir: /home/arma
+      creates: /home/arma/arma3server
+
+  - name: Set Arma Steam Username and Password
+    template:
+      src: steam.cfg
+      dest: /home/arma/lgsm/config-lgsm/arma3server/common.cfg
+
+  - name: Install Arma 3
+    command: /home/arma/arma3server ai
+    args:
+      chdir: /home/arma
+      creates: /home/arma/serverfiles
+    register: result
+
+  - name: Update Arma 3
+    command: /home/arma/arma3server update
+    when: result is skipped
+
+  - name: Create Arma 3 Service
+    become: yes
+    copy: 
+      src: systemd.service
+      dest: /etc/systemd/system/arma3.service
+
+  - name: Set the ssh key
+    copy:
+      src: deploy_key.pem
+      dest: /home/arma/.ssh/id_rsa
+      mode: 0600
+
+  - file:
+      path: /home/arma/serverfiles/mpmissions/readme.txt
+      state: absent
+
+  - name: Get Missions
+    git:
+      repo: git@github.com:dog-company/missions.git
+      dest: /home/arma/serverfiles/mpmissions
+      accept_hostkey: yes
+
+  - name: Template out modlist
+    template:
+      src: modlist.txt
+      dest: /home/arma/modlist.txt
+    register: result
+
+  - name: Get Mods
+    command: "/home/arma/steamcmd/steamcmd.sh +runscript /home/arma/modlist.txt"
+    when: result is changed
+
+  - name: Create mod dir
+    file:
+      path: /home/arma/serverfiles/mods
+      state: directory
+
+  - name: Sync modfiles into place
+    command: rsync -ry --progress --delete /home/arma/Steam/workshop/steamapps/workshop/content/107410/ /home/arma/serverfiles/mods
+    when: result is changed
+
+  - name: Rename all files into lowercase
+    command: find /home/arma/serverfiles/mods/ -depth -exec rename 's/(.*)\/([^\/]*)/$1\/\L$2/' {} \;
+    when: result is changed
+
+  - name: Redo bikey files for authorized mods
+    command: find /home/arma/serverfiles/mods/ -type f -name "*.bikey" -exec cp {} /home/arma/serverfiles/keys \;
+    when: result is changed
+
+  - name: Configure the server
+    template:
+      src: server_settings.cfg
+      dest: /home/arma/lgsm/config-lgsm/arma3server/arma3server.cfg
+
+  - name: Start and enable Arma 3 service
+    become: yes
+    systemd:
+      state: restarted
+      enabled: yes
+      name: arma3
+      daemon_reload: yes
