@@ -44,7 +44,7 @@
     authorized_key:
       user: arma
       state: present
-      key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+      key: "{{ lookup('file', '.ssh/id_rsa.pub') }}"
 
   - name: Add the user 'teamspeak' with a bash shell, appending the group 'sudo' to the user's groups
     user:
@@ -57,4 +57,4 @@
     authorized_key:
       user: teamspeak
       state: present
-      key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+      key: "{{ lookup('file', '.ssh/id_rsa.pub') }}"
