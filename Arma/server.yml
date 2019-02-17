@@ -125,7 +125,7 @@
       accept_hostkey: yes
       
   - name: Remove mission folders, keep pbos
-    command: find ./ -type f ! -name '*.pbo' -exec rm -df '{}' \;
+    command: find ./ ! -name '.git' ! -name '*.pbo' -exec rm -drf '{}' \;
 
   - name: Template out modlist
     template:
