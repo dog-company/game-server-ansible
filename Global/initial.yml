@@ -44,6 +44,7 @@
     file:
       path: /home/arma/.ssh
       state: directory
+      owner: arma
 
   - name: Set authorized key taken from root
     copy:
@@ -62,6 +63,7 @@
     file:
       path: /home/teamspeak/.ssh
       state: directory
+      owner: teamspeak
 
   - name: Set authorized key taken from root
     copy:
