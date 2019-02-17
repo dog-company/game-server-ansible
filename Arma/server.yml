@@ -85,6 +85,12 @@
     args:
       chdir: /home/arma
       creates: /home/arma/arma3server
+      
+  - name: Install linuxgsm
+    command: /home/arma/arma3server
+    args:
+      chdir: /home/arma
+      creates: /home/arma/lgsm/config-lgsm/arma3server/
 
   - name: Set Arma Steam Username and Password
     template:
