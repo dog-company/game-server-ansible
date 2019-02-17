@@ -39,6 +39,11 @@
       shell: /bin/bash
       groups: sudo
       append: yes
+      
+  - name: Ensure ssh dir exists
+    file:
+      path: /home/arma/.ssh
+      state: directory
 
   - name: Set authorized key taken from root
     copy:
@@ -52,6 +57,11 @@
       shell: /bin/bash
       groups: sudo
       append: yes
+  
+    - name: Ensure ssh dir exists
+    file:
+      path: /home/teamspeak/.ssh
+      state: directory
 
   - name: Set authorized key taken from root
     copy:
