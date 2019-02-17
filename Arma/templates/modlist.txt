@@ -2,7 +2,7 @@
 @NoPromptForPassword 1
 login {{ steam_user }} {{ steam_pass }}
 force_install_dir /home/arma/Steam/workshop/
-{% if mods %}{% for mod in mods %}{% endif %}
+{% for mod in mods | default([]) %}
 workshop_download_item 107410 {{mod}}
 {% endfor %}
 quit
