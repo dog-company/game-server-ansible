@@ -131,7 +131,7 @@
       accept_hostkey: yes
       
   - name: Remove mission folders
-    command: find /home/arma/serverfiles/mpmissions -type d -path ./.git -prune -o -exec rm -drf '{}' \;
+    command: find /home/arma/serverfiles/mpmissions/ -type d -not -path ./.git -exec rm -drf '{}' \;
 
   - name: Template out modlist
     template:
