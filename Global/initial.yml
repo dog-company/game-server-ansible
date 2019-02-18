@@ -33,9 +33,9 @@
       line: '%sudo ALL=(ALL) NOPASSWD: ALL'
       validate: 'visudo -cf %s'
 
-  - name: Add the user '{{ item }}' with a bash shell, appending the group 'sudo' to the user's groups
+  - name: "Add the user {{ item }} with a bash shell, appending the group sudo to the user's groups"
     user:
-      name: {{ item }}
+      name: "{{ item }}"
       shell: /bin/bash
       groups: sudo
       append: yes
@@ -44,20 +44,20 @@
       - teamspeak
       - minecraft
       
-  - name: Ensure ssh dir exists for {{ item }}
+  - name: "Ensure ssh dir exists for {{ item }}"
     file:
-      path: /home/{{ item }}/.ssh
+      path: "/home/{{ item }}/.ssh"
       state: directory
-      owner: {{ item }}
+      owner: "{{ item }}"
     with_items:
       - arma
       - teamspeak
       - minecraft
 
-  - name: Set authorized key for {{ item }} taken from root
+  - name: "Set authorized key for {{ item }} taken from root"
     copy:
       src: /root/.ssh/authorized_keys
-      dest: /home/{{ item }}/.ssh/authorized_keys
+      dest: "/home/{{ item }}/.ssh/authorized_keys"
       remote_src: yes
     with_items:
       - arma
