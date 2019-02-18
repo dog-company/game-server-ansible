@@ -129,9 +129,11 @@
       repo: git@github.com:dog-company/missions.git
       dest: /home/arma/serverfiles/mpmissions
       accept_hostkey: yes
+      separate_git_dir: /home/arma/serverfiles/.git-mpmissions
+
       
   - name: Remove mission folders
-    command: find /home/arma/serverfiles/mpmissions/ -type f -not -path '*.pbo' -not -path '.git' -execdir rm -rf {} +
+    command: find /home/arma/serverfiles/mpmissions/ -mindepth 1 -maxdepth 1 -type d -exec rm -rf {} \;
 
   - name: Template out modlist
     template:
