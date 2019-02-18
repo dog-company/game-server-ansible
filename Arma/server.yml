@@ -121,8 +121,11 @@
       mode: 0600
 
   - file:
-      path: /home/arma/serverfiles/mpmissions
+      path: "{{ item }}"
       state: absent
+    with_items:
+      - "/home/arma/serverfiles/.git-mpmissions"
+      - "/home/arma/serverfiles/mpmissions"
 
   - name: Get Missions
     git:
