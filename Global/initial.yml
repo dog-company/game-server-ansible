@@ -33,40 +33,33 @@
       line: '%sudo ALL=(ALL) NOPASSWD: ALL'
       validate: 'visudo -cf %s'
 
-  - name: Add the user 'arma' with a bash shell, appending the group 'sudo' to the user's groups
+  - name: Add the user '{{ item }}' with a bash shell, appending the group 'sudo' to the user's groups
     user:
-      name: arma
+      name: {{ item }}
       shell: /bin/bash
       groups: sudo
       append: yes
+    with_items:
+      - arma
+      - teamspeak
+      - minecraft
       
-  - name: Ensure ssh dir exists
+  - name: Ensure ssh dir exists for {{ item }}
     file:
-      path: /home/arma/.ssh
+      path: /home/{{ item }}/.ssh
       state: directory
-      owner: arma
+      owner: {{ item }}
+    with_items:
+      - arma
+      - teamspeak
+      - minecraft
 
-  - name: Set authorized key taken from root
+  - name: Set authorized key for {{ item }} taken from root
     copy:
       src: /root/.ssh/authorized_keys
-      dest: /home/arma/.ssh/authorized_keys
+      dest: /home/{{ item }}/.ssh/authorized_keys
       remote_src: yes
-
-  - name: Add the user 'teamspeak' with a bash shell, appending the group 'sudo' to the user's groups
-    user:
-      name: teamspeak
-      shell: /bin/bash
-      groups: sudo
-      append: yes
-  
-  - name: Ensure ssh dir exists
-    file:
-      path: /home/teamspeak/.ssh
-      state: directory
-      owner: teamspeak
-
-  - name: Set authorized key taken from root
-    copy:
-      src: /root/.ssh/authorized_keys
-      dest: /home/teamspeak/.ssh/authorized_keys
-      remote_src: yes
+    with_items:
+      - arma
+      - teamspeak
+      - minecraft

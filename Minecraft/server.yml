@@ -1,0 +1,47 @@
+---
+- hosts: game
+  remote_user: minecraft
+  tasks:
+
+  - name: Install Minecraft requirements
+    become: yes
+    apt:
+      name: "{{ packages }}"
+      update_cache: yes
+    vars:
+      packages:
+      - mailutils
+      - postfix
+      - curl
+      - wget
+      - file
+      - bzip2
+      - gzip
+      - unzip
+      - bsdmainutils
+      - python
+      - util-linux
+      - ca-certificates
+      - binutils
+      - bc
+      - jq
+      - tmux
+      - default-jre
+
+  - name: Download linuxgsm installer
+    get_url:
+      url: https://linuxgsm.sh
+      dest: /home/minecraft/linuxgsm.sh
+      mode: 0755
+
+  - name: Install linuxgsm
+    command: /home/minecraft/linuxgsm.sh mcserver
+    args:
+      chdir: /home/minecraft
+      creates: /home/minecraft/mcserver
+
+  - name: Install Minecraft
+    command: /home/minecraft/mcserver ai
+    args:
+      chdir: /home/minecraft
+      creates: /home/minecraft/serverfiles
