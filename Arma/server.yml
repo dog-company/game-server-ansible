@@ -121,7 +121,7 @@
       mode: 0600
 
   - file:
-      path: /home/arma/serverfiles/mpmissions/readme.txt
+      path: /home/arma/serverfiles/mpmissions
       state: absent
 
   - name: Get Missions
@@ -131,7 +131,6 @@
       accept_hostkey: yes
       separate_git_dir: /home/arma/serverfiles/.git-mpmissions
 
-      
   - name: Remove mission folders
     command: find /home/arma/serverfiles/mpmissions/ -mindepth 1 -maxdepth 1 -type d -exec rm -rf {} \;
 
