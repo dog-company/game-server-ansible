@@ -176,12 +176,14 @@
     name: "Start server on reboot"
     special_time: reboot
     job: "/home/arma/arma3server monitor"
+    user: arma
 
 - name: Check server hourly
   cron:
     name: "Check server hourly"
     special_time: hourly
     job: "/home/arma/arma3server monitor"
+    user: arma
 
 - name: Create missions update script
   copy:
