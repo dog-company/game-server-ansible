@@ -45,170 +45,170 @@
       - 721359761
 
   tasks:
-  - name: Install Arma requirements
-    become: yes 
-    apt: 
-      name: "{{ packages }}"
-      update_cache: yes
-    vars: 
-      packages:
-      - mailutils 
-      - postfix 
-      - curl 
-      - wget 
-      - file 
-      - bzip2 
-      - gzip 
-      - unzip 
-      - bsdmainutils 
-      - python 
-      - util-linux 
-      - ca-certificates 
-      - binutils 
-      - bc 
-      - jq 
-      - tmux 
-      - lib32gcc1 
-      - libstdc++6 
-      - libstdc++6:i386
-      - git
-      - rename
-      - webhook
-      -
+    - name: Install Arma requirements
+      become: yes
+      apt:
+        name: "{{ packages }}"
+        update_cache: yes
+      vars:
+        packages:
+        - mailutils
+        - postfix
+        - curl
+        - wget
+        - file
+        - bzip2
+        - gzip
+        - unzip
+        - bsdmainutils
+        - python
+        - util-linux
+        - ca-certificates
+        - binutils
+        - bc
+        - jq
+        - tmux
+        - lib32gcc1
+        - libstdc++6
+        - libstdc++6:i386
+        - git
+        - rename
+        - webhook
+        -
 
-  - name: Download linuxgsm installer
-    get_url:
-      url: https://linuxgsm.sh
-      dest: /home/arma/linuxgsm.sh
-      mode: 0755
+    - name: Download linuxgsm installer
+      get_url:
+        url: https://linuxgsm.sh
+        dest: /home/arma/linuxgsm.sh
+        mode: 0755
 
-  - name: Install linuxgsm
-    command: /home/arma/linuxgsm.sh arma3server
-    args:
-      chdir: /home/arma
-      creates: /home/arma/arma3server
-      
-  - name: Install linuxgsm
-    command: /home/arma/arma3server
-    args:
-      chdir: /home/arma
-      creates: /home/arma/lgsm/config-lgsm/arma3server/
+    - name: Install linuxgsm
+      command: /home/arma/linuxgsm.sh arma3server
+      args:
+        chdir: /home/arma
+        creates: /home/arma/arma3server
 
-  - name: Set Arma Steam Username and Password
-    template:
-      src: steam.cfg
-      dest: /home/arma/lgsm/config-lgsm/arma3server/common.cfg
+    - name: Install linuxgsm
+      command: /home/arma/arma3server
+      args:
+        chdir: /home/arma
+        creates: /home/arma/lgsm/config-lgsm/arma3server/
 
-  - name: Install Arma 3
-    command: /home/arma/arma3server ai
-    args:
-      chdir: /home/arma
-      creates: /home/arma/serverfiles
-    register: result
+    - name: Set Arma Steam Username and Password
+      template:
+        src: steam.cfg
+        dest: /home/arma/lgsm/config-lgsm/arma3server/common.cfg
 
-  - name: Update Arma 3
-    command: /home/arma/arma3server update
-    when: result is skipped
+    - name: Install Arma 3
+      command: /home/arma/arma3server ai
+      args:
+        chdir: /home/arma
+        creates: /home/arma/serverfiles
+      register: result
 
-  - name: Create Arma 3 Service
-    become: yes
-    copy: 
-      src: systemd.service
-      dest: /etc/systemd/system/arma3.service
+    - name: Update Arma 3
+      command: /home/arma/arma3server update
+      when: result is skipped
 
-  - name: Set the ssh key
-    copy:
-      src: deploy_key.pem
-      dest: /home/arma/.ssh/id_rsa
-      mode: 0600
+    - name: Create Arma 3 Service
+      become: yes
+      copy:
+        src: systemd.service
+        dest: /etc/systemd/system/arma3.service
 
-  - file:
-      path: "{{ item }}"
-      state: absent
-    with_items:
-      - "/home/arma/serverfiles/.git-mpmissions"
-      - "/home/arma/serverfiles/mpmissions"
+    - name: Set the ssh key
+      copy:
+        src: deploy_key.pem
+        dest: /home/arma/.ssh/id_rsa
+        mode: 0600
 
-  - name: Get Missions
-    git:
-      repo: git@github.com:dog-company/missions.git
-      dest: /home/arma/serverfiles/mpmissions
-      accept_hostkey: yes
-      separate_git_dir: /home/arma/serverfiles/.git-mpmissions
+    - file:
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - "/home/arma/serverfiles/.git-mpmissions"
+        - "/home/arma/serverfiles/mpmissions"
 
-  - name: Remove mission folders
-    command: find /home/arma/serverfiles/mpmissions/ -mindepth 1 -maxdepth 1 -type d -exec rm -rf {} \;
+    - name: Get Missions
+      git:
+        repo: git@github.com:dog-company/missions.git
+        dest: /home/arma/serverfiles/mpmissions
+        accept_hostkey: yes
+        separate_git_dir: /home/arma/serverfiles/.git-mpmissions
 
-  - name: Template out modlist
-    template:
-      src: modlist.txt
-      dest: /home/arma/modlist.txt
-    register: result
+    - name: Remove mission folders
+      command: find /home/arma/serverfiles/mpmissions/ -mindepth 1 -maxdepth 1 -type d -exec rm -rf {} \;
 
-  - name: Get Mods
-    command: "/home/arma/steamcmd/steamcmd.sh +runscript /home/arma/modlist.txt"
-    when: result is changed
+    - name: Template out modlist
+      template:
+        src: modlist.txt
+        dest: /home/arma/modlist.txt
+      register: result
 
-  - name: Create mod dir
-    file:
-      path: /home/arma/serverfiles/mods
-      state: directory
+    - name: Get Mods
+      command: "/home/arma/steamcmd/steamcmd.sh +runscript /home/arma/modlist.txt"
+      when: result is changed
 
-  - name: Sync modfiles into place
-    command: rsync -ry --progress --delete /home/arma/Steam/workshop/steamapps/workshop/content/107410/ /home/arma/serverfiles/mods
-    when: result is changed
+    - name: Create mod dir
+      file:
+        path: /home/arma/serverfiles/mods
+        state: directory
 
-  - name: Rename all files into lowercase
-    command: find /home/arma/serverfiles/mods/ -depth -exec rename 's/(.*)\/([^\/]*)/$1\/\L$2/' {} \;
-    when: result is changed
+    - name: Sync modfiles into place
+      command: rsync -ry --progress --delete /home/arma/Steam/workshop/steamapps/workshop/content/107410/ /home/arma/serverfiles/mods
+      when: result is changed
 
-  - name: Redo bikey files for authorized mods
-    command: find /home/arma/serverfiles/mods/ -type f -name "*.bikey" -exec cp {} /home/arma/serverfiles/keys \;
-    when: result is changed
+    - name: Rename all files into lowercase
+      command: find /home/arma/serverfiles/mods/ -depth -exec rename 's/(.*)\/([^\/]*)/$1\/\L$2/' {} \;
+      when: result is changed
 
-  - name: Configure the server
-    template:
-      src: server_settings.cfg
-      dest: /home/arma/lgsm/config-lgsm/arma3server/arma3server.cfg
+    - name: Redo bikey files for authorized mods
+      command: find /home/arma/serverfiles/mods/ -type f -name "*.bikey" -exec cp {} /home/arma/serverfiles/keys \;
+      when: result is changed
 
-  - name: Start server on reboot
-    cron:
-      name: "Start server on reboot"
-      special_time: reboot
-      job: "/home/arma/arma3server monitor"
-      user: arma
+    - name: Configure the server
+      template:
+        src: server_settings.cfg
+        dest: /home/arma/lgsm/config-lgsm/arma3server/arma3server.cfg
 
-  - name: Check server hourly
-    cron:
-      name: "Check server hourly"
-      special_time: hourly
-      job: "/home/arma/arma3server monitor"
-      user: arma
+    - name: Start server on reboot
+      cron:
+        name: "Start server on reboot"
+        special_time: reboot
+        job: "/home/arma/arma3server monitor"
+        user: arma
 
-  - name: Create missions update script
-    copy:
-      src: update_missions.sh
-      dest: /home/arma/update_missions.sh
+    - name: Check server hourly
+      cron:
+        name: "Check server hourly"
+        special_time: hourly
+        job: "/home/arma/arma3server monitor"
+        user: arma
 
-  - name: Create webhooks directory
-    file:
-      path: /etc/webhook
-      state: directory
+    - name: Create missions update script
+      copy:
+        src: update_missions.sh
+        dest: /home/arma/update_missions.sh
 
-  - name: Configure webhooks
-    template:
-      src: webhooks.json
-      dest: /etc/webhook/hooks.json
-      chmod: 0777
+    - name: Create webhooks directory
+      file:
+        path: /etc/webhook
+        state: directory
 
-  - name: Create Arma 3 Service
-    become: yes
-    copy:
-      src: webhooks.service
-      dest: /etc/systemd/system/webhooks.service
+    - name: Configure webhooks
+      template:
+        src: webhooks.json
+        dest: /etc/webhook/hooks.json
+        chmod: 0777
 
-  - name: Start and enable webhooks service
-    systemd:
-      state: restarted
-      daemon_reload: yes
-      name: webhooks
+    - name: Create Arma 3 Service
+      become: yes
+      copy:
+        src: webhooks.service
+        dest: /etc/systemd/system/webhooks.service
+
+    - name: Start and enable webhooks service
+      systemd:
+        state: restarted
+        daemon_reload: yes
+        name: webhooks
