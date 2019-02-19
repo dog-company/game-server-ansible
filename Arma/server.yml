@@ -171,44 +171,44 @@
       src: server_settings.cfg
       dest: /home/arma/lgsm/config-lgsm/arma3server/arma3server.cfg
 
-- name: Start server on reboot
-  cron:
-    name: "Start server on reboot"
-    special_time: reboot
-    job: "/home/arma/arma3server monitor"
-    user: arma
+  - name: Start server on reboot
+    cron:
+      name: "Start server on reboot"
+      special_time: reboot
+      job: "/home/arma/arma3server monitor"
+      user: arma
 
-- name: Check server hourly
-  cron:
-    name: "Check server hourly"
-    special_time: hourly
-    job: "/home/arma/arma3server monitor"
-    user: arma
+  - name: Check server hourly
+    cron:
+      name: "Check server hourly"
+      special_time: hourly
+      job: "/home/arma/arma3server monitor"
+      user: arma
 
-- name: Create missions update script
-  copy:
-    src: update_missions.sh
-    dest: /home/arma/update_missions.sh
+  - name: Create missions update script
+    copy:
+      src: update_missions.sh
+      dest: /home/arma/update_missions.sh
 
-- name: Create webhooks directory
-  file:
-    path: /etc/webhook
-    state: directory
+  - name: Create webhooks directory
+    file:
+      path: /etc/webhook
+      state: directory
 
-- name: Configure webhooks
-  template:
-    src: webhooks.json
-    dest: /etc/webhook/hooks.json
-    chmod: 0777
+  - name: Configure webhooks
+    template:
+      src: webhooks.json
+      dest: /etc/webhook/hooks.json
+      chmod: 0777
 
-- name: Create Arma 3 Service
-  become: yes
-  copy:
-    src: webhooks.service
-    dest: /etc/systemd/system/webhooks.service
+  - name: Create Arma 3 Service
+    become: yes
+    copy:
+      src: webhooks.service
+      dest: /etc/systemd/system/webhooks.service
 
-- name: Start and enable webhooks service
-  systemd:
-    state: restarted
-    daemon_reload: yes
-    name: webhooks
+  - name: Start and enable webhooks service
+    systemd:
+      state: restarted
+      daemon_reload: yes
+      name: webhooks
