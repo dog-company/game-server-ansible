@@ -1,0 +1,7 @@
+[
+  {
+    "id": "missions",
+    "execute-command": "/home/arma/update_missions.sh",
+    "command-working-directory": "/home/arma/serverfiles/mpmissions"
+  }
+]

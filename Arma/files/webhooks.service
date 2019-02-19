@@ -1,0 +1,13 @@
+[Unit]
+Description=Missions Webhook
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=arma
+WorkingDirectory=/home/arma
+Exec=/usr/bin/webhook -hooks /etc/webhook/webhooks.json
+
+[Install]
+WantedBy=multi-user.target
