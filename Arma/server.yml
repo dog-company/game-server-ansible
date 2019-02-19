@@ -188,6 +188,7 @@
       copy:
         src: update_missions.sh
         dest: /home/arma/update_missions.sh
+        chmod: 0755
 
     - name: Create webhooks directory
       become: yes
@@ -196,12 +197,13 @@
         state: directory
 
     - name: Configure webhooks
+      become: yes
       template:
         src: webhooks.json
         dest: /etc/webhook/hooks.json
-        chmod: 0777
+        chmod: 0666
 
-    - name: Create Arma 3 Service
+    - name: Create webhook Service
       become: yes
       copy:
         src: webhooks.service
