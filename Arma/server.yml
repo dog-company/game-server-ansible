@@ -74,6 +74,7 @@
       - git
       - rename
       - webhook
+      -
 
   - name: Download linuxgsm installer
     get_url:
@@ -176,9 +177,9 @@
     special_time: reboot
     job: "/home/arma/arma3server monitor"
 
-- name: Start server on reboot
+- name: Check server hourly
   cron:
-    name: "Check server on hourly"
+    name: "Check server hourly"
     special_time: hourly
     job: "/home/arma/arma3server monitor"
 
@@ -196,6 +197,7 @@
   template:
     src: webhooks.json
     dest: /etc/webhook/hooks.json
+    chmod: 0777
 
 - name: Create Arma 3 Service
   become: yes
