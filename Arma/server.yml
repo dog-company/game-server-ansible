@@ -190,6 +190,7 @@
         dest: /home/arma/update_missions.sh
 
     - name: Create webhooks directory
+      become: yes
       file:
         path: /etc/webhook
         state: directory
