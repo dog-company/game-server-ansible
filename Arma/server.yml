@@ -227,6 +227,7 @@
         dest: /etc/systemd/system/webhooks.service
 
     - name: Start and enable webhooks service
+      become: yes
       systemd:
         state: started
         daemon_reload: yes
