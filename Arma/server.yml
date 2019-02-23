@@ -185,8 +185,9 @@
         user: arma
 
     - name: Start server
-      command:  /home/arma/arma3server start
+      shell:  /home/arma/arma3server start
       args:
+        executable: /bin/bash
         chdir: /home/arma
 
     - name: Create missions update script
