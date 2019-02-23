@@ -228,6 +228,6 @@
 
     - name: Start and enable webhooks service
       systemd:
-        state: restarted
+        state: started
         daemon_reload: yes
         name: webhooks
