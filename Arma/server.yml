@@ -196,7 +196,7 @@
         user: arma
 
     - name: Start server
-      shell:  /home/arma/arma3server start
+      shell:  /home/arma/arma3server restart
       args:
         executable: /bin/bash
         chdir: /home/arma
