@@ -184,6 +184,11 @@
         job: "/home/arma/arma3server monitor"
         user: arma
 
+    - name: Start server
+      command:
+        command: /home/arma/arma3server start
+        chdir: /home/arma
+
     - name: Create missions update script
       copy:
         src: update_missions.sh
