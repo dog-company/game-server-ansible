@@ -43,6 +43,12 @@
       - 620019431 # task_force_radio
       - 643530417 # USS Nimitz
       - 721359761 # Vcom AI V3.1
+    admins:
+      - "76561198007051865" # Giggaflop
+      - "76561198041702905" # Simpleton216
+      - "76561197961945422" # Oddis
+      - "76561198065986954" # Gamer
+      - "76561198042250946" # Akkedude
 
   tasks:
     - name: Install Arma requirements
@@ -170,11 +176,16 @@
         src: server_settings.cfg
         dest: /home/arma/lgsm/config-lgsm/arma3server/arma3server.cfg
 
+    - name: More configure the server
+      template:
+        src: arma3server.server.cfg
+        dest: /home/arma/serverfiles/cfg/ara3server.server.cfg
+
     - name: Start server on reboot
       cron:
         name: "Start server on reboot"
         special_time: reboot
-        job: "/home/arma/arma3server monitor"
+        job: "/home/arma/arma3server start"
         user: arma
 
     - name: Check server hourly
