@@ -179,7 +179,7 @@
     - name: More configure the server
       template:
         src: arma3server.server.cfg
-        dest: /home/arma/serverfiles/cfg/ara3server.server.cfg
+        dest: /home/arma/serverfiles/cfg/arma3server.server.cfg
 
     - name: Start server on reboot
       cron:
