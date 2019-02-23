@@ -3,46 +3,46 @@
   remote_user: arma
   vars:
     mods:
-      - 843425103
-      - 843577117
-      - 861133494
-      - 450814997
-      - 463939057
-      - 843593391
-      - 945476727
-      - 1180533757
-      - 843632231
-      - 773131200
-      - 773125288
-      - 884966711
-      - 583496184
-      - 1136518526
-      - 1185836585
-      - 708250744
-      - 723217262
-      - 620260972
-      - 820924072
-      - 767380317
-      - 667953829
-      - 1375890861
-      - 583544987
-      - 853743366
-      - 1435263885
-      - 366425329
-      - 1227179728
-      - 537154025
-      - 582478120
-      - 366423278
-      - 743099837
-      - 708278910
-      - 1180534892
-      - 1486541773
-      - 779520435
-      - 735566597
-      - 1207709270
-      - 620019431
-      - 643530417
-      - 721359761
+      - 450814997 # CBA_A3
+      - 463939057 # ACE3
+      - 583496184 # CUP Terrains - Core
+      - 583544987 # CUP Terrains - Maps
+      - 853743366 # CUP Terrains - CWA
+      - 1375890861 # CUP ACE3 Compatibility Addon - Terrains
+      - 843425103 # RHS AFRF
+      - 843577117 # RHS USAF
+      - 843593391 # RHS GREF
+      - 843632231 # RHSSAF
+      - 861133494 # JSRS Soundmod
+      - 945476727 # JSRS SOUNDMOD - RHS AFRF Mod Pack Sound Support
+      - 1180533757 # JSRS SOUNDMOD - RHS USAF Mod Pack Sound Support
+      - 1180534892 # JSRS SOUNDMOD - RHS GREF Mod Pack Sound Support
+      - 1486541773 # JSRS SOUNDMOD - RHS SAF Mod Pack Support
+      - 773131200 # ACE Compat - RHS Armed Forces of the Russian Federation
+      - 773125288 # ACE Compat - RHS United States Armed Forces
+      - 884966711 # ACE Compat - RHS: GREF
+      - 1185836585 # ACE3 RHS Missile Guidance Сompatibility
+      - 1136518526 # Ace Particles 3.12.5.40
+      - 708250744 # ACEX
+      - 723217262 # Achilles
+      - 620260972 # ALiVE
+      - 820924072 # BackpackOnChest
+      - 767380317 # Blastcore Edited (standalone version)
+      - 667953829 # BloodLust
+      - 1435263885 # Diwako's ACE Ragdolling
+      - 366425329 # FIR AWS(AirWeaponSystem)
+      - 1227179728 # EA-18G Growler
+      - 537154025 # F-14 Tomcat
+      - 582478120 # F-15 Eagle
+      - 366423278 # F-16 Fighting Falcon
+      - 743099837 # FA-18 Super Hornet
+      - 708278910 # Island Panthera
+      - 779520435 # Multi-play Uniforms
+      - 735566597 # Project OPFOR
+      - 1207709270 # Tao Folding Map
+      - 620019431 # task_force_radio
+      - 643530417 # USS Nimitz
+      - 721359761 # Vcom AI V3.1
 
   tasks:
     - name: Install Arma requirements
