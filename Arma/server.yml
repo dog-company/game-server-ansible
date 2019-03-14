@@ -225,10 +225,11 @@
       copy:
         src: webhooks.service
         dest: /etc/systemd/system/webhooks.service
+        mode: 0666
 
     - name: Start and enable webhooks service
       become: yes
       systemd:
         state: started
         daemon_reload: yes
-        name: webhooks
+        name: webhooks.service
