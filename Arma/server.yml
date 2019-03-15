@@ -159,15 +159,12 @@
 
     - name: Sync modfiles into place
       command: rsync -ry --progress --delete /home/arma/Steam/workshop/steamapps/workshop/content/107410/ /home/arma/serverfiles/mods
-      when: result is changed
 
     - name: Rename all files into lowercase
       command: find /home/arma/serverfiles/mods/ -depth -exec rename 's/(.*)\/([^\/]*)/$1\/\L$2/' {} \;
-      when: result is changed
 
     - name: Redo bikey files for authorized mods
       command: find /home/arma/serverfiles/mods/ -type f -name "*.bikey" -exec cp {} /home/arma/serverfiles/keys \;
-      when: result is changed
 
     - name: Configure the server
       template:
