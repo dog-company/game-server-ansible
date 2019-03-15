@@ -233,3 +233,10 @@
         state: restarted
         daemon_reload: yes
         name: webhooks.service
+
+    - name: Start and enable arma service
+      become: yes
+      systemd:
+        state: restarted
+        daemon_reload: yes
+        name: arma3.service
