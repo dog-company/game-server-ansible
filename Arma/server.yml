@@ -148,11 +148,9 @@
       template:
         src: modlist.txt
         dest: /home/arma/modlist.txt
-      register: result
 
     - name: Get Mods
       command: "/home/arma/steamcmd/steamcmd.sh +runscript /home/arma/modlist.txt"
-      when: result is changed
 
     - name: Create mod dir
       file:
