@@ -1,0 +1,16 @@
+[Unit]
+Description=LinuxGSM Teamspeak3 Server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=teamspeak
+WorkingDirectory=/home/teamspeak
+ExecStart=/home/teamspeak/ts3server start
+ExecStop=/home/teamspeak/ts3server stop
+Restart=no
+RemainAfterExit=yes   #Assume that the service is running after main process exits with code 0
+
+[Install]
+WantedBy=multi-user.target

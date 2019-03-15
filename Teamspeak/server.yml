@@ -39,8 +39,22 @@
       chdir: /home/teamspeak
       creates: /home/teamspeak/ts3server
 
-  - name: Install TS 3  
+  - name: Install TS3
     command: /home/teamspeak/ts3server ai
     args:
       chdir: /home/teamspeak
       creates: /home/teamspeak/serverfiles
+
+  - name: Create TS3 Service
+    become: yes
+    copy:
+      src: systemd.service
+      dest: /etc/systemd/system/teamspeak3.service
+      mode: 0666
+
+  - name: Start and enable TS3 service
+    become: yes
+    systemd:
+      state: restarted
+      daemon_reload: yes
+      name: teamspeak3.service
