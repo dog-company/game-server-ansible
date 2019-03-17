@@ -45,6 +45,11 @@
       chdir: /home/teamspeak
       creates: /home/teamspeak/serverfiles
 
+  - name: Start TS3
+    command: /home/teamspeak/ts3server start
+    args:
+      chdir: /home/teamspeak
+
   - name: Create TS3 Service
     become: yes
     copy:
