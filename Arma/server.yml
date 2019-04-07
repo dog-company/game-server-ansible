@@ -179,6 +179,13 @@
         path: /home/arma/serverfiles/mods
         state: directory
 
+    - shell: ls -1 /home/arma/Steam/workshop/steamapps/workshop/content/107410/
+      register: contents
+
+    - file: path=/home/arma/Steam/workshop/steamapps/workshop/content/107410/{{ item }} state=absent
+      with_items: contents.stdout_lines
+      when: item not in mods
+
     - name: Sync modfiles into place
       command: rsync -ry --progress --delete /home/arma/Steam/workshop/steamapps/workshop/content/107410/ /home/arma/serverfiles/mods
 
