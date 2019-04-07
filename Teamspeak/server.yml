@@ -49,6 +49,7 @@
     command: /home/teamspeak/ts3server start
     args:
       chdir: /home/teamspeak
+    ignore_errors: true
 
   - name: Create TS3 Service
     become: yes
