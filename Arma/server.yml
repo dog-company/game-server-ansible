@@ -66,6 +66,42 @@
       - 714149065 # Isla Duala
       - 648775794 # Isla Abramia
       - 943001311 # Unsung Mod
+      - 1547016606 # Advanced Breaching
+      - 713709341 # Advanced Rappelling
+      - 615007497 # Advanced Sling Loading
+      - 639837898 # Advanced Towing
+      - 1547762495 # Advanced Underbarrel
+      - 730310357 # Advanced Urban Rappelling
+      - 1378046829 # Advanced Weapon Mounting
+      - 1569116504 # Advanced Zipline
+      - 428181330 # Bornholm
+      - 1509358862 # Caribbean Islands
+      - 648172507 # G.O.S Al Rayak
+      - 701535490 # G.O.S Dariyah
+      - 855464203 # G.O.S Leskovets
+      - 643744158 # G.O.S Kalu Khan
+      - 693153082 # G.O.S Gunkizli
+      - 937515516 # G.O.S N'Djenahoud
+      - 520618345 # JBAD
+      - 909547724 # LYTHIUM
+      - 1329037386 # Sennoe
+      - 1282716647 # Vidda|Legacy
+      - 1446500688 # Angola Maps v1.3
+      - 1281275340 # ARC Farkhar Valley
+      - 1494115712 # Ihantala
+      - 1494127420 # Ihantala Winter
+      - 895405887 # Kulima island
+      - 718649903 # Lingor/Dingor Island
+      - 1724046234 # MAP Chernobyl FOR ARMA 3
+      - 962932583 # MBG Buildings 3 (Arma2 Legacy)
+      - 1527410521 # Rosche, Germany
+      - 850767937 # SFP: Wamako
+      - 1458210741 # Todt
+      - 950966660 # Prei Khmaoch Luong | ព្រៃខ្មោចលង
+      - 938375441 # Diaoyu Islands (Lighting Fixed)
+      - 1692037148 # [16PF] Goose Green, Falklands
+      - 777069287 # Uhao island
+      - 1680471603 # Desert Battlegrounds
     admins:
       - "76561198007051865" # Giggaflop
       - "76561198041702905" # Simpleton216
@@ -265,3 +301,13 @@
         state: restarted
         daemon_reload: yes
         name: arma3.service
+
+    - name: Enable Services
+      become: yes
+      systemd:
+        enabled: yes
+        name: "{{ services }}"
+      vars:
+        services:
+          - arma3
+          - webhooks
