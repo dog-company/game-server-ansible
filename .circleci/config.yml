@@ -17,3 +17,4 @@ jobs:
       - run:
           name: Provision the server
           command: ansible-playbook -i ./hosts Global/initial.yml Arma/server.yml Teamspeak/server.yml Minecraft/server.yml --vault-password-file=.vault_pass.py
+          no_output_timeout: 2h
