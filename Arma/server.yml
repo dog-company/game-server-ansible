@@ -233,7 +233,7 @@
       when: item not in mods
 
     - name: Sync modfiles into place
-      command: rsync -ry --progress --delete /home/arma/Steam/workshop/steamapps/workshop/content/107410/ /home/arma/serverfiles/mods
+      command: rsync -ry -a --link-dest=/home/arma/Steam/workshop/steamapps/workshop/content/107410/ --progress --delete /home/arma/Steam/workshop/steamapps/workshop/content/107410/ /home/arma/serverfiles/mods
 
     - name: Rename all files into lowercase
       command: find /home/arma/serverfiles/mods/ -depth -exec rename 's/(.*)\/([^\/]*)/$1\/\L$2/' {} \;
