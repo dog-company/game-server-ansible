@@ -210,6 +210,15 @@
 
     - name: Get Mods
       command: "/home/arma/steamcmd/steamcmd.sh +runscript /home/arma/modlist.txt 2>&1"
+      async: 3600
+      register: mod_fetch
+
+    - name: 'MODS - check on async task'
+      async_status:
+        jid: "{{ mod_fetch.ansible_job_id }}"
+      register: job_result
+      until: job_result.finished
+      retries: 3600
 
     - name: Create mod dir
       file:
