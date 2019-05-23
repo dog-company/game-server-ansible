@@ -318,5 +318,5 @@
         name: "{{ services }}"
       vars:
         services:
-          - arma3.service
-          - webhooks.service
+          - arma3
+          - webhooks
