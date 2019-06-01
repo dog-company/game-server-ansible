@@ -248,6 +248,11 @@
 
     - name: More configure the server
       template:
+        src: server.Arma3Profile
+        dest: "/home/arma/.local/share/Arma 3 - Other Profiles/Player/Player.Arma3Profile"
+
+    - name: Extra more configure the server
+      template:
         src: arma3server.server.cfg
         dest: /home/arma/serverfiles/cfg/arma3server.server.cfg
 
