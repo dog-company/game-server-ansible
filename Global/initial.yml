@@ -4,7 +4,7 @@
 
 - hosts: all
   gather_facts: False
-  remote_user: root
+  remote_user: ubuntu
   
   tasks:
   - name: Check if i386 is enabled
