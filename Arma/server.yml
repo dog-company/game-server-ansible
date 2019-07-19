@@ -292,10 +292,10 @@
 
     - name: Start server
       shell:  /home/arma/arma3server start
-        args:
-          executable: /bin/bash
-          chdir: /home/arma
-        when: result is skipped
+      args:
+        executable: /bin/bash
+        chdir: /home/arma
+      when: result is skipped
 
     - name: Create missions update script
       copy:
