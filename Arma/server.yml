@@ -177,12 +177,6 @@
       command: /home/arma/arma3server update
       when: result is skipped
 
-    - name: Create Arma 3 Service
-      become: yes
-      copy:
-        src: systemd.service
-        dest: /etc/systemd/system/arma3.service
-
     - name: Set the ssh key
       copy:
         src: deploy_key.pem
@@ -329,6 +323,12 @@
         state: restarted
         daemon_reload: yes
         name: webhooks.service
+
+    - name: Create Arma 3 Service
+      become: yes
+      copy:
+        src: systemd.service
+        dest: /etc/systemd/system/arma3.service
 
     - name: Start and enable arma service
       become: yes
