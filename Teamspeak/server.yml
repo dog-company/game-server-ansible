@@ -65,11 +65,9 @@
       daemon_reload: yes
       name: teamspeak3.service
 
-  - name: Enable Services
+  - name: Enable Teamspeak Service
     become: yes
     systemd:
       enabled: yes
-      name: "{{ services }}"
-    vars:
-      services:
-        - teamspeak3
+      name: teamspeak3.service
+
