@@ -260,9 +260,9 @@
         dest: "/home/arma/.local/share/Arma 3 - Other Profiles/Player/Player.Arma3Profile"
 
     - name: Create Player Profile
-        file:
-          path: "/home/arma/serverfiles/cfg/"
-          state: directory
+      file:
+        path: "/home/arma/serverfiles/cfg/"
+        state: directory
 
     - name: Extra more configure the server
       template:
