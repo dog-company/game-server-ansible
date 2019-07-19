@@ -341,16 +341,10 @@
       become: yes
       systemd:
         enabled: yes
-        name: "{{ services }}"
-      vars:
-        services:
-          - arma3
+        name: arma3.service
 
     - name: Enable Webhook Service
       become: yes
       systemd:
         enabled: yes
-        name: "{{ services }}"
-      vars:
-        services:
-          - webhooks
+        name: webhooks.service
