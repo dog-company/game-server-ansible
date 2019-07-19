@@ -337,7 +337,7 @@
         daemon_reload: yes
         name: arma3.service
 
-    - name: Enable Services
+    - name: Enable Arma Service
       become: yes
       systemd:
         enabled: yes
@@ -345,4 +345,12 @@
       vars:
         services:
           - arma3
+
+    - name: Enable Webhook Service
+      become: yes
+      systemd:
+        enabled: yes
+        name: "{{ services }}"
+      vars:
+        services:
           - webhooks
