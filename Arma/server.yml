@@ -249,10 +249,20 @@
         src: server_settings.cfg
         dest: /home/arma/lgsm/config-lgsm/arma3server/arma3server.cfg
 
+    - name: Create Player Profile
+      file:
+        path: "/home/arma/.local/share/Arma 3 - Other Profiles/Player/"
+        state: directory
+
     - name: More configure the server
       template:
         src: server.Arma3Profile
         dest: "/home/arma/.local/share/Arma 3 - Other Profiles/Player/Player.Arma3Profile"
+
+    - name: Create Player Profile
+        file:
+          path: "/home/arma/serverfiles/cfg/"
+          state: directory
 
     - name: Extra more configure the server
       template:
@@ -274,10 +284,18 @@
         user: arma
 
     - name: Start server
-      shell:  /home/arma/arma3server restart
+      shell:  /home/arma/arma3server start
       args:
         executable: /bin/bash
         chdir: /home/arma
+      when: result is changed
+
+    - name: Start server
+        shell:  /home/arma/arma3server start
+        args:
+          executable: /bin/bash
+          chdir: /home/arma
+        when: result is skipped
 
     - name: Create missions update script
       copy:
