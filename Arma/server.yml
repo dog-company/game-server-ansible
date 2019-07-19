@@ -291,7 +291,7 @@
       when: result is changed
 
     - name: Start server
-        shell:  /home/arma/arma3server start
+      shell:  /home/arma/arma3server start
         args:
           executable: /bin/bash
           chdir: /home/arma
