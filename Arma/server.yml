@@ -21,7 +21,6 @@
       - 773131200 # ACE Compat - RHS Armed Forces of the Russian Federation
       - 773125288 # ACE Compat - RHS United States Armed Forces
       - 884966711 # ACE Compat - RHS: GREF
-      - 1185836585 # ACE3 RHS Missile Guidance Сompatibility
       - 1136518526 # Ace Particles 3.12.5.40
       - 708250744 # ACEX
       - 723217262 # Achilles
@@ -267,6 +266,16 @@
       template:
         src: server.Arma3Profile
         dest: "/home/arma/.local/share/Arma 3 - Other Profiles/Player/Player.Arma3Profile"
+
+    - name: More configure the server
+      template:
+        src: server.Arma3Profile
+        dest: "/home/arma/.local/share/Arma 3 - Other Profiles/headlessclient/HC1.Arma3Profile"
+
+    - name: More configure the server
+      template:
+        src: server.Arma3Profile
+        dest: "/home/arma/.local/share/Arma 3 - Other Profiles/headlessclient/HC2.Arma3Profile"
 
     - name: Create Player Profile
       file:

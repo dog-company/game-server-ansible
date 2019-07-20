@@ -55,3 +55,4 @@ class DifficultyPresets
 		precisionAI = 0.5;
 	};
 };
+battleyeLicense=1;
