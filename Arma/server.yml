@@ -229,10 +229,32 @@
     - name: Remove mission folders
       command: find /home/arma/serverfiles/mpmissions/ -mindepth 1 -maxdepth 1 -type d -exec rm -rf {} \;
 
+    - name: Create Headless Client 1
+      file:
+        src: /home/arma/arma3server
+        dest: /home/arma/arma3server-hc1
+        remote_src: true
+
+    - name: Create Headless Client 2
+      file:
+        src: /home/arma/arma3server
+        dest: /home/arma/arma3server-hc2
+        remote_src: true
+
     - name: Configure the server
       template:
         src: server_settings.cfg
         dest: /home/arma/lgsm/config-lgsm/arma3server/arma3server.cfg
+
+    - name: Configure Headless Client 1
+      template:
+        src: headless_1_settings.cfg
+        dest: /home/arma/lgsm/config-lgsm/arma3server/arma3server-hc1.cfg
+
+    - name: Configure Headless Client 2
+      template:
+        src: headless_2_settings.cfg
+        dest: /home/arma/lgsm/config-lgsm/arma3server/arma3server-hc2.cfg
 
     - name: Create Player Profile
       file:
@@ -267,6 +289,78 @@
         special_time: hourly
         job: "/home/arma/arma3server monitor"
         user: arma
+
+    - name: Start hc1 on reboot
+      cron:
+        name: "Start hc1 on reboot"
+        special_time: reboot
+        job: "/home/arma/arma3server-hc1 start"
+        user: arma
+
+    - name: Check hc1 hourly
+      cron:
+        name: "Check hc1 hourly"
+        special_time: hourly
+        job: "/home/arma/arma3server-hc1 monitor"
+        user: arma
+
+    - name: Start hc2 on reboot
+      cron:
+        name: "Start hc2 on reboot"
+        special_time: reboot
+        job: "/home/arma/arma3server-hc2 start"
+        user: arma
+
+    - name: Check hc2 hourly
+      cron:
+        name: "Check hc2 hourly"
+        special_time: hourly
+        job: "/home/arma/arma3server-hc2 monitor"
+        user: arma
+
+    - name: Create missions update script
+      copy:
+        src: update_missions.sh
+        dest: /home/arma/update_missions.sh
+        mode: 0755
+
+    - name: Configure webhooks
+      become: yes
+      template:
+        src: webhooks.json
+        dest: /etc/webhook.json
+        mode: 0666
+
+    - name: Start and enable webhooks service
+      become: yes
+      systemd:
+        state: restarted
+        daemon_reload: yes
+        name: webhook.service
+
+    - name: Create Arma 3 Service
+      become: yes
+      copy:
+        src: systemd.service
+        dest: /etc/systemd/system/arma3.service
+
+    - name: Create Arma 3 hc1 Service
+      become: yes
+      copy:
+        src: systemd-hc1.service
+        dest: /etc/systemd/system/arma3-hc1.service
+
+    - name: Create Arma 3 hc2 Service
+      become: yes
+      copy:
+        src: systemd-hc2.service
+        dest: /etc/systemd/system/arma3-hc2.service
+
+    - name: Enable Webhook Service
+      become: yes
+      systemd:
+        enabled: yes
+        name: webhook.service
 
     - name: 'Get Mods - check on async task'
       async_status:
@@ -308,31 +402,33 @@
         chdir: /home/arma
       when: result is skipped
 
-    - name: Create missions update script
-      copy:
-        src: update_missions.sh
-        dest: /home/arma/update_missions.sh
-        mode: 0755
+    - name: Start Headless 1
+      shell:  /home/arma/arma3server-hc1 start
+      args:
+        executable: /bin/bash
+        chdir: /home/arma
+      when: result is changed
 
-    - name: Configure webhooks
-      become: yes
-      template:
-        src: webhooks.json
-        dest: /etc/webhook.json
-        mode: 0666
+    - name: Start Headless 1
+      shell:  /home/arma/arma3server-hc1 restart
+      args:
+        executable: /bin/bash
+        chdir: /home/arma
+      when: result is skipped
 
-    - name: Start and enable webhooks service
-      become: yes
-      systemd:
-        state: restarted
-        daemon_reload: yes
-        name: webhook.service
+    - name: Start Headless 2
+      shell:  /home/arma/arma3server-hc2 start
+      args:
+        executable: /bin/bash
+        chdir: /home/arma
+      when: result is changed
 
-    - name: Create Arma 3 Service
-      become: yes
-      copy:
-        src: systemd.service
-        dest: /etc/systemd/system/arma3.service
+    - name: Start Headless 2
+      shell:  /home/arma/arma3server-hc2 restart
+      args:
+        executable: /bin/bash
+        chdir: /home/arma
+      when: result is skipped
 
     - name: Start and enable arma service
       become: yes
@@ -347,8 +443,28 @@
         enabled: yes
         name: arma3.service
 
-    - name: Enable Webhook Service
+    - name: Start and enable arma hc1 service
+      become: yes
+      systemd:
+        state: restarted
+        daemon_reload: yes
+        name: arma3-hc1.service
+
+    - name: Enable Arma hc1 Service
       become: yes
       systemd:
         enabled: yes
-        name: webhook.service
+        name: arma3-hc1.service
+
+    - name: Start and enable arma hc2 service
+      become: yes
+      systemd:
+        state: restarted
+        daemon_reload: yes
+        name: arma3-hc2.service
+
+    - name: Enable Arma hc2 Service
+      become: yes
+      systemd:
+        enabled: yes
+        name: arma3-hc2.service
