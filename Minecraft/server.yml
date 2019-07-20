@@ -45,3 +45,12 @@
     args:
       chdir: /home/minecraft
       creates: /home/minecraft/serverfiles
+    register: minecraft_install
+
+  - name: Start Minecraft
+    command: /home/minecraft/mcserver start
+    when: minecraft_install is changed
+
+  - name: Restart Minecraft
+    command: /home/minecraft/mcserver restart
+    when: minecraft_install is skipped

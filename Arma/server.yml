@@ -173,6 +173,35 @@
         creates: /home/arma/serverfiles
       register: result
 
+    - name: Template out modlist
+      template:
+        src: modlist.txt
+        dest: /home/arma/modlist.txt
+
+    - name: Create mod dir
+      file:
+        path: /home/arma/serverfiles/mods
+        state: directory
+
+    - name: Get checksum of mods directory
+      stat:
+        path: /home/arma/serverfiles/mods
+        checksum_algorithm: sha256
+      register: pre_mod_checksum
+
+    - shell: ls -1 /home/arma/Steam/workshop/steamapps/workshop/content/107410/
+      register: contents
+
+    - file: path=/home/arma/Steam/workshop/steamapps/workshop/content/107410/{{ item }} state=absent
+      with_items: contents.stdout_lines
+      when: item not in mods
+
+    - name: Get Mods
+      command: "/home/arma/steamcmd/steamcmd.sh +runscript /home/arma/modlist.txt 2>&1"
+      async: 36000
+      poll: 0
+      register: get_mod_sleeper
+
     - name: Update Arma 3
       command: /home/arma/arma3server update
       when: result is skipped
@@ -199,51 +228,6 @@
 
     - name: Remove mission folders
       command: find /home/arma/serverfiles/mpmissions/ -mindepth 1 -maxdepth 1 -type d -exec rm -rf {} \;
-
-    - name: Template out modlist
-      template:
-        src: modlist.txt
-        dest: /home/arma/modlist.txt
-
-    - name: Create mod dir
-      file:
-        path: /home/arma/serverfiles/mods
-        state: directory
-
-    - name: Get checksum of mods directory
-      stat:
-        path: /home/arma/serverfiles/mods
-        checksum_algorithm: sha256
-      register: pre_mod_checksum
-
-    - shell: ls -1 /home/arma/Steam/workshop/steamapps/workshop/content/107410/
-      register: contents
-
-    - file: path=/home/arma/Steam/workshop/steamapps/workshop/content/107410/{{ item }} state=absent
-      with_items: contents.stdout_lines
-      when: item not in mods
-
-    - name: Get Mods
-      command: "/home/arma/steamcmd/steamcmd.sh +runscript /home/arma/modlist.txt 2>&1"
-
-    - name: Sync modfiles into place
-      command: rsync -ry -a --link-dest=/home/arma/Steam/workshop/steamapps/workshop/content/107410/ --progress --delete /home/arma/Steam/workshop/steamapps/workshop/content/107410/ /home/arma/serverfiles/mods
-
-    - name: Rename all files into lowercase
-      command: find /home/arma/serverfiles/mods/ -depth -exec rename 's/(.*)\/([^\/]*)/$1\/\L$2/' {} \;
-
-    - name: Get checksum of mods directory after updates
-      stat:
-        path: /home/arma/serverfiles/mods
-        checksum_algorithm: sha256
-      register: post_mod_checksum
-
-    - debug:
-        msg: "{{pre_mod_checksum.stat.checksum}} > {{post_mod_checksum.stat.checksum}}"
-      when: pre_mod_checksum.stat.checksum is defined and post_mod_checksum.stat.checksum is defined
-
-    - name: Redo bikey files for authorized mods
-      command: find /home/arma/serverfiles/mods/ -type f -name "*.bikey" -exec cp {} /home/arma/serverfiles/keys \;
 
     - name: Configure the server
       template:
@@ -284,6 +268,32 @@
         job: "/home/arma/arma3server monitor"
         user: arma
 
+    - name: 'Get Mods - check on async task'
+      async_status:
+        jid: "{{ get_mod_sleeper.ansible_job_id }}"
+      register: job_result
+      until: job_result.finished
+      retries: 30000
+
+    - name: Sync modfiles into place
+      command: rsync -ry -a --link-dest=/home/arma/Steam/workshop/steamapps/workshop/content/107410/ --progress --delete /home/arma/Steam/workshop/steamapps/workshop/content/107410/ /home/arma/serverfiles/mods
+
+    - name: Rename all files into lowercase
+      command: find /home/arma/serverfiles/mods/ -depth -exec rename 's/(.*)\/([^\/]*)/$1\/\L$2/' {} \;
+
+    - name: Get checksum of mods directory after updates
+      stat:
+        path: /home/arma/serverfiles/mods
+        checksum_algorithm: sha256
+      register: post_mod_checksum
+
+    - debug:
+        msg: "{{pre_mod_checksum.stat.checksum}} > {{post_mod_checksum.stat.checksum}}"
+      when: pre_mod_checksum.stat.checksum is defined and post_mod_checksum.stat.checksum is defined
+
+    - name: Redo bikey files for authorized mods
+      command: find /home/arma/serverfiles/mods/ -type f -name "*.bikey" -exec cp {} /home/arma/serverfiles/keys \;
+
     - name: Start server
       shell:  /home/arma/arma3server start
       args:
@@ -292,7 +302,7 @@
       when: result is changed
 
     - name: Start server
-      shell:  /home/arma/arma3server start
+      shell:  /home/arma/arma3server restart
       args:
         executable: /bin/bash
         chdir: /home/arma
