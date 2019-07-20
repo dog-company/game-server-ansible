@@ -304,24 +304,11 @@
         dest: /home/arma/update_missions.sh
         mode: 0755
 
-    - name: Create webhooks directory
-      become: yes
-      file:
-        path: /etc/webhook
-        state: directory
-
     - name: Configure webhooks
       become: yes
       template:
         src: webhooks.json
-        dest: /etc/webhook/hooks.json
-        mode: 0666
-
-    - name: Create webhook Service
-      become: yes
-      copy:
-        src: webhooks.service
-        dest: /etc/systemd/system/webhooks.service
+        dest: /etc/webhook.json
         mode: 0666
 
     - name: Start and enable webhooks service
@@ -329,7 +316,7 @@
       systemd:
         state: restarted
         daemon_reload: yes
-        name: webhooks.service
+        name: webhook.service
 
     - name: Create Arma 3 Service
       become: yes
@@ -354,4 +341,4 @@
       become: yes
       systemd:
         enabled: yes
-        name: webhooks.service
+        name: webhook.service
