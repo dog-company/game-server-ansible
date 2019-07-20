@@ -205,22 +205,16 @@
         src: modlist.txt
         dest: /home/arma/modlist.txt
 
-    - name: Get Mods
-      command: "/home/arma/steamcmd/steamcmd.sh +runscript /home/arma/modlist.txt 2>&1"
-      async: 3600
-      register: mod_fetch
-
-    - name: 'MODS - check on async task'
-      async_status:
-        jid: "{{ mod_fetch.ansible_job_id }}"
-      register: job_result
-      until: job_result.finished
-      retries: 3600
-
     - name: Create mod dir
       file:
         path: /home/arma/serverfiles/mods
         state: directory
+
+    - name: Get checksum of mods directory
+      stat:
+        path: /home/arma/serverfiles/mods
+        checksum_algorithm: sha256
+      register: pre_mod_checksum
 
     - shell: ls -1 /home/arma/Steam/workshop/steamapps/workshop/content/107410/
       register: contents
@@ -229,11 +223,24 @@
       with_items: contents.stdout_lines
       when: item not in mods
 
+    - name: Get Mods
+      command: "/home/arma/steamcmd/steamcmd.sh +runscript /home/arma/modlist.txt 2>&1"
+
     - name: Sync modfiles into place
       command: rsync -ry -a --link-dest=/home/arma/Steam/workshop/steamapps/workshop/content/107410/ --progress --delete /home/arma/Steam/workshop/steamapps/workshop/content/107410/ /home/arma/serverfiles/mods
 
     - name: Rename all files into lowercase
       command: find /home/arma/serverfiles/mods/ -depth -exec rename 's/(.*)\/([^\/]*)/$1\/\L$2/' {} \;
+
+    - name: Get checksum of mods directory after updates
+      stat:
+        path: /home/arma/serverfiles/mods
+        checksum_algorithm: sha256
+      register: post_mod_checksum
+
+    - debug:
+        msg: "{{pre_mod_checksum.stat.checksum}} > {{post_mod_checksum.stat.checksum}}"
+      when: pre_mod_checksum.stat.checksum is defined and post_mod_checksum.stat.checksum is defined
 
     - name: Redo bikey files for authorized mods
       command: find /home/arma/serverfiles/mods/ -type f -name "*.bikey" -exec cp {} /home/arma/serverfiles/keys \;
