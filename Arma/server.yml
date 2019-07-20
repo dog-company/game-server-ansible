@@ -230,13 +230,13 @@
       command: find /home/arma/serverfiles/mpmissions/ -mindepth 1 -maxdepth 1 -type d -exec rm -rf {} \;
 
     - name: Create Headless Client 1
-      file:
+      copy:
         src: /home/arma/arma3server
         dest: /home/arma/arma3server-hc1
         remote_src: true
 
     - name: Create Headless Client 2
-      file:
+      copy:
         src: /home/arma/arma3server
         dest: /home/arma/arma3server-hc2
         remote_src: true
