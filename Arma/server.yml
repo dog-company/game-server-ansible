@@ -234,12 +234,14 @@
         src: /home/arma/arma3server
         dest: /home/arma/arma3server-hc1
         remote_src: true
+        mode: 0755
 
     - name: Create Headless Client 2
       copy:
         src: /home/arma/arma3server
         dest: /home/arma/arma3server-hc2
         remote_src: true
+        mode: 0755
 
     - name: Configure the server
       template:
