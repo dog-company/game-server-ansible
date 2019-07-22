@@ -346,7 +346,7 @@
 
     - name: Create Arma 3 headless clients Service
       become: yes
-      templates:
+      template:
         src: systemd-hc.service
         dest: "/etc/systemd/system/arma3-hc{{item}}.service"
       with_items:
