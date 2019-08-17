@@ -9,18 +9,18 @@
       - 583544987 # CUP Terrains - Maps
       - 853743366 # CUP Terrains - CWA
       - 1375890861 # CUP ACE3 Compatibility Addon - Terrains
-#      - 843425103 # RHS AFRF
-#      - 843577117 # RHS USAF
-#      - 843593391 # RHS GREF
-#      - 843632231 # RHSSAF
+      - 843425103 # RHS AFRF
+      - 843577117 # RHS USAF
+      - 843593391 # RHS GREF
+      - 843632231 # RHSSAF
       - 861133494 # JSRS Soundmod
-#      - 945476727 # JSRS SOUNDMOD - RHS AFRF Mod Pack Sound Support
-#      - 1180533757 # JSRS SOUNDMOD - RHS USAF Mod Pack Sound Support
-#      - 1180534892 # JSRS SOUNDMOD - RHS GREF Mod Pack Sound Support
-#      - 1486541773 # JSRS SOUNDMOD - RHS SAF Mod Pack Support
-#      - 773131200 # ACE Compat - RHS Armed Forces of the Russian Federation
-#      - 773125288 # ACE Compat - RHS United States Armed Forces
-#      - 884966711 # ACE Compat - RHS: GREF
+      - 945476727 # JSRS SOUNDMOD - RHS AFRF Mod Pack Sound Support
+      - 1180533757 # JSRS SOUNDMOD - RHS USAF Mod Pack Sound Support
+      - 1180534892 # JSRS SOUNDMOD - RHS GREF Mod Pack Sound Support
+      - 1486541773 # JSRS SOUNDMOD - RHS SAF Mod Pack Support
+      - 773131200 # ACE Compat - RHS Armed Forces of the Russian Federation
+      - 773125288 # ACE Compat - RHS United States Armed Forces
+      - 884966711 # ACE Compat - RHS: GREF
       - 1136518526 # Ace Particles 3.12.5.40
       - 708250744 # ACEX
       - 723217262 # Achilles
@@ -36,14 +36,14 @@
       - 366423278 # F-16 Fighting Falcon
       - 743099837 # FA-18 Super Hornet
       - 708278910 # Island Panthera
-#      - 779520435 # Multi-play Uniforms
-#      - 735566597 # Project OPFOR
+      - 779520435 # Multi-play Uniforms
+      - 735566597 # Project OPFOR
       - 1207709270 # Tao Folding Map
       - 620019431 # task_force_radio
       - 643530417 # USS Nimitz
       - 721359761 # Vcom AI V3.1
 #      - 893328083 # 3CB BAF Equipment
-#      - 1661066023 # RKSL Studios: Attachments v3.00
+      - 1661066023 # RKSL Studios: Attachments v3.00
 #      - 893339590 # 3CB BAF Weapons
 #      - 893349825 # 3CB BAF Vehicles
 #      - 893346105 # 3CB BAF Units
@@ -74,7 +74,7 @@
       - 1378046829 # Advanced Weapon Mounting
       - 1569116504 # Advanced Zipline
       - 428181330 # Bornholm
-#      - 1509358862 # Caribbean Islands
+      - 1509358862 # Caribbean Islands
       - 648172507 # G.O.S Al Rayak
       - 701535490 # G.O.S Dariyah
       - 855464203 # G.O.S Leskovets
