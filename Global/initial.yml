@@ -14,18 +14,22 @@
     failed_when: result_i386_check.rc > 1
 
   - name: Enable i386 architecture
+    become: yes
     command: dpkg --add-architecture i386
     when: result_i386_check.rc == 1
 
   - name: Ensure apt cache is up to date
+    become: yes
     apt: update_cache=yes
     when: result_i386_check.rc == 1
 
   - name: Ensure that sudo is installed
+    become: yes
     apt: 
       name: sudo
 
   - name: Ensure sudo doesnt require a password
+    become: yes
     lineinfile:   
       path: /etc/sudoers
       state: present
@@ -34,6 +38,7 @@
       validate: 'visudo -cf %s'
 
   - name: "Add the user {{ item }} with a bash shell, appending the group sudo to the user's groups"
+    become: yes
     user:
       name: "{{ item }}"
       shell: /bin/bash
@@ -45,6 +50,7 @@
       - minecraft
       
   - name: "Ensure ssh dir exists for {{ item }}"
+    become: yes
     file:
       path: "/home/{{ item }}/.ssh"
       state: directory
@@ -55,6 +61,7 @@
       - minecraft
 
   - name: "Set authorized key for {{ item }} taken from root"
+    become: yes
     copy:
       src: /home/ubuntu/.ssh/authorized_keys
       dest: "/home/{{ item }}/.ssh/authorized_keys"
