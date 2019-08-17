@@ -8,6 +8,7 @@
   
   tasks:
   - name: Check if i386 is enabled
+    become: yes
     shell: dpkg --print-foreign-architectures | grep i386
     register: result_i386_check
     changed_when: result_i386_check.rc == 1
