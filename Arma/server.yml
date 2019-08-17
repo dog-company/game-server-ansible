@@ -307,16 +307,16 @@
         - 2
         - 3
 
-    - name: Check headless clients hourly
-      cron:
-        name: "Check hc{{item}} hourly"
-        special_time: hourly
-        job: "/home/arma/arma3server-hc{{item}} monitor"
-        user: arma
-      with_items:
-        - 1
-        - 2
-        - 3
+#    - name: Check headless clients hourly
+#      cron:
+#        name: "Check hc{{item}} hourly"
+#        special_time: hourly
+#        job: "/home/arma/arma3server-hc{{item}} monitor"
+#        user: arma
+#      with_items:
+#        - 1
+#        - 2
+#        - 3
 
     - name: Create missions update script
       copy:

@@ -4,7 +4,7 @@
 
 - hosts: all
   gather_facts: False
-  remote_user: root
+  remote_user: ubuntu
   
   tasks:
   - name: Check if i386 is enabled
@@ -56,7 +56,7 @@
 
   - name: "Set authorized key for {{ item }} taken from root"
     copy:
-      src: /root/.ssh/authorized_keys
+      src: /home/ubuntu/.ssh/authorized_keys
       dest: "/home/{{ item }}/.ssh/authorized_keys"
       remote_src: yes
     with_items:
