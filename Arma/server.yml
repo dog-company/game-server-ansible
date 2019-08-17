@@ -268,6 +268,11 @@
         src: server.Arma3Profile
         dest: "/home/arma/.local/share/Arma 3 - Other Profiles/Player/Player.Arma3Profile"
 
+    - name: check /home/arma/.local/share/Arma 3 - Other Profiles/headlessclient/ exists
+      file:
+        path: /home/arma/.local/share/Arma 3 - Other Profiles/headlessclient/
+        state: directory
+
     - name: More configure the server
       template:
         src: server.Arma3Profile
