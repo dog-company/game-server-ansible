@@ -3,107 +3,170 @@
   remote_user: arma
   vars:
     mods:
-      - 450814997 # CBA_A3
-      - 463939057 # ACE3
-      - 583496184 # CUP Terrains - Core
-      - 583544987 # CUP Terrains - Maps
-      - 853743366 # CUP Terrains - CWA
-      - 1375890861 # CUP ACE3 Compatibility Addon - Terrains
-      - 843425103 # RHS AFRF
-      - 843577117 # RHS USAF
-      - 843593391 # RHS GREF
-      - 843632231 # RHSSAF
-      - 861133494 # JSRS Soundmod
-      - 945476727 # JSRS SOUNDMOD - RHS AFRF Mod Pack Sound Support
-      - 1180533757 # JSRS SOUNDMOD - RHS USAF Mod Pack Sound Support
-      - 1180534892 # JSRS SOUNDMOD - RHS GREF Mod Pack Sound Support
-      - 1486541773 # JSRS SOUNDMOD - RHS SAF Mod Pack Support
-      - 773131200 # ACE Compat - RHS Armed Forces of the Russian Federation
-      - 773125288 # ACE Compat - RHS United States Armed Forces
-      - 884966711 # ACE Compat - RHS: GREF
-      - 1136518526 # Ace Particles 3.12.5.40
-      - 708250744 # ACEX
-      - 723217262 # Achilles
-      - 620260972 # ALiVE
-      - 820924072 # BackpackOnChest
-      - 767380317 # Blastcore Edited (standalone version)
-      - 667953829 # BloodLust
-      - 1435263885 # Diwako's ACE Ragdolling
-      - 366425329 # FIR AWS(AirWeaponSystem)
-      - 1227179728 # EA-18G Growler
-      - 537154025 # F-14 Tomcat
-      - 582478120 # F-15 Eagle
-      - 366423278 # F-16 Fighting Falcon
-      - 743099837 # FA-18 Super Hornet
-      - 708278910 # Island Panthera
-      - 779520435 # Multi-play Uniforms
-      - 735566597 # Project OPFOR
-      - 1207709270 # Tao Folding Map
-      - 620019431 # task_force_radio
-      - 643530417 # USS Nimitz
-      - 721359761 # Vcom AI V3.1
-      - 893328083 # 3CB BAF Equipment
-      - 1661066023 # RKSL Studios: Attachments v3.00
-      - 893339590 # 3CB BAF Weapons
-      - 893349825 # 3CB BAF Vehicles
-      - 893346105 # 3CB BAF Units
-      - 1673456286 # 3CB Factions
-      - 820994401 # FFAA MOD
-      - 1515851169 # 3CB BAF Vehicles (RHS reskins)
-      - 1515845502 # 3CB BAF Weapons (RHS ammo compatibility)
-      - 1135543967 # 3CB BAF Vehicles (Servicing extension)
-      - 1135541175 # 3CB BAF Units (RHS compatibility)
-      - 1135539579 # 3CB BAF Units (ACE compatibility)
-      - 1580089750 # Arma Containment Breach - SCP in ArmA III
-      - 1600293139 # Project Lightning - F-35B Armaverse Version
-      - 623475643 # 3den Enhanced
-      - 1208939123 # Actionbuilder
-      - 708278910 # Island Panthera
-      - 836147398 # X-Cam-Taunus (Version 1.1)
-      - 761349672 # CLA CLAFGHAN
-      - 1598087521 # Summa
-      - 714149065 # Isla Duala
-      - 648775794 # Isla Abramia
-      - 943001311 # Unsung Mod
-      - 1547016606 # Advanced Breaching
-      - 713709341 # Advanced Rappelling
-      - 615007497 # Advanced Sling Loading
-      - 639837898 # Advanced Towing
-      - 1547762495 # Advanced Underbarrel
-      - 730310357 # Advanced Urban Rappelling
-      - 1378046829 # Advanced Weapon Mounting
-      - 1569116504 # Advanced Zipline
-      - 428181330 # Bornholm
-      - 1509358862 # Caribbean Islands
-      - 648172507 # G.O.S Al Rayak
-      - 701535490 # G.O.S Dariyah
-      - 855464203 # G.O.S Leskovets
-      - 643744158 # G.O.S Kalu Khan
-      - 693153082 # G.O.S Gunkizli
-      - 937515516 # G.O.S N'Djenahoud
-      - 520618345 # JBAD
-      - 909547724 # LYTHIUM
-      - 1329037386 # Sennoe
-      - 1282716647 # Vidda|Legacy
-      - 1446500688 # Angola Maps v1.3
-      - 1281275340 # ARC Farkhar Valley
-      - 1494115712 # Ihantala
-      - 1494127420 # Ihantala Winter
-      - 895405887 # Kulima island
-      - 718649903 # Lingor/Dingor Island
-      - 1724046234 # MAP Chernobyl FOR ARMA 3
-      - 962932583 # MBG Buildings 3 (Arma2 Legacy)
-      - 1527410521 # Rosche, Germany
-      - 850767937 # SFP: Wamako
-      - 1458210741 # Todt
-      - 950966660 # Prei Khmaoch Luong | ព្រៃខ្មោចលង
-      - 938375441 # Diaoyu Islands (Lighting Fixed)
-      - 1692037148 # [16PF] Goose Green, Falklands
-      - 777069287 # Uhao island
-      - 1680471603 # Desert Battlegrounds
-      - 1580089750 # Arma Containment Breach
-      - 1763469776 # SCP 173
-      - 333310405 # Enhanced Movement
+#      - 450814997 # CBA_A3
+#      - 463939057 # ACE3
+#      - 583496184 # CUP Terrains - Core
+#      - 583544987 # CUP Terrains - Maps
+#      - 853743366 # CUP Terrains - CWA
+#      - 1375890861 # CUP ACE3 Compatibility Addon - Terrains
+#      - 843425103 # RHS AFRF
+#      - 843577117 # RHS USAF
+#      - 843593391 # RHS GREF
+#      - 843632231 # RHSSAF
+#      - 861133494 # JSRS Soundmod
+#      - 945476727 # JSRS SOUNDMOD - RHS AFRF Mod Pack Sound Support
+#      - 1180533757 # JSRS SOUNDMOD - RHS USAF Mod Pack Sound Support
+#      - 1180534892 # JSRS SOUNDMOD - RHS GREF Mod Pack Sound Support
+#      - 1486541773 # JSRS SOUNDMOD - RHS SAF Mod Pack Support
+#      - 773131200 # ACE Compat - RHS Armed Forces of the Russian Federation
+#      - 773125288 # ACE Compat - RHS United States Armed Forces
+#      - 884966711 # ACE Compat - RHS: GREF
+#      - 1136518526 # Ace Particles 3.12.5.40
+#      - 708250744 # ACEX
+#      - 723217262 # Achilles
+#      - 620260972 # ALiVE
+#      - 820924072 # BackpackOnChest
+#      - 767380317 # Blastcore Edited (standalone version)
+#      - 667953829 # BloodLust
+#      - 1435263885 # Diwako's ACE Ragdolling
+#      - 366425329 # FIR AWS(AirWeaponSystem)
+#      - 1227179728 # EA-18G Growler
+#      - 537154025 # F-14 Tomcat
+#      - 582478120 # F-15 Eagle
+#      - 366423278 # F-16 Fighting Falcon
+#      - 743099837 # FA-18 Super Hornet
+#      - 708278910 # Island Panthera
+#      - 779520435 # Multi-play Uniforms
+#      - 735566597 # Project OPFOR
+#      - 1207709270 # Tao Folding Map
+#      - 620019431 # task_force_radio
+#      - 643530417 # USS Nimitz
+#      - 721359761 # Vcom AI V3.1
+#      - 893328083 # 3CB BAF Equipment
+#      - 1661066023 # RKSL Studios: Attachments v3.00
+#      - 893339590 # 3CB BAF Weapons
+#      - 893349825 # 3CB BAF Vehicles
+#      - 893346105 # 3CB BAF Units
+#      - 1673456286 # 3CB Factions
+#      - 820994401 # FFAA MOD
+#      - 1515851169 # 3CB BAF Vehicles (RHS reskins)
+#      - 1515845502 # 3CB BAF Weapons (RHS ammo compatibility)
+#      - 1135543967 # 3CB BAF Vehicles (Servicing extension)
+#      - 1135541175 # 3CB BAF Units (RHS compatibility)
+#      - 1135539579 # 3CB BAF Units (ACE compatibility)
+#      - 1580089750 # Arma Containment Breach - SCP in ArmA III
+#      - 1600293139 # Project Lightning - F-35B Armaverse Version
+#      - 623475643 # 3den Enhanced
+#      - 1208939123 # Actionbuilder
+#      - 708278910 # Island Panthera
+#      - 836147398 # X-Cam-Taunus (Version 1.1)
+#      - 761349672 # CLA CLAFGHAN
+#      - 1598087521 # Summa
+#      - 714149065 # Isla Duala
+#      - 648775794 # Isla Abramia
+#      - 943001311 # Unsung Mod
+#      - 1547016606 # Advanced Breaching
+#      - 713709341 # Advanced Rappelling
+#      - 615007497 # Advanced Sling Loading
+#      - 639837898 # Advanced Towing
+#      - 1547762495 # Advanced Underbarrel
+#      - 730310357 # Advanced Urban Rappelling
+#      - 1378046829 # Advanced Weapon Mounting
+#      - 1569116504 # Advanced Zipline
+#      - 428181330 # Bornholm
+#      - 1509358862 # Caribbean Islands
+#      - 648172507 # G.O.S Al Rayak
+#      - 701535490 # G.O.S Dariyah
+#      - 855464203 # G.O.S Leskovets
+#      - 643744158 # G.O.S Kalu Khan
+#      - 693153082 # G.O.S Gunkizli
+#      - 937515516 # G.O.S N'Djenahoud
+#      - 520618345 # JBAD
+#      - 909547724 # LYTHIUM
+#      - 1329037386 # Sennoe
+#      - 1282716647 # Vidda|Legacy
+#      - 1446500688 # Angola Maps v1.3
+#      - 1281275340 # ARC Farkhar Valley
+#      - 1494115712 # Ihantala
+#      - 1494127420 # Ihantala Winter
+#      - 895405887 # Kulima island
+#      - 718649903 # Lingor/Dingor Island
+#      - 1724046234 # MAP Chernobyl FOR ARMA 3
+#      - 962932583 # MBG Buildings 3 (Arma2 Legacy)
+#      - 1527410521 # Rosche, Germany
+#      - 850767937 # SFP: Wamako
+#      - 1458210741 # Todt
+#      - 950966660 # Prei Khmaoch Luong | ព្រៃខ្មោចលង
+#      - 938375441 # Diaoyu Islands (Lighting Fixed)
+#      - 1692037148 # [16PF] Goose Green, Falklands
+#      - 777069287 # Uhao island
+#      - 1680471603 # Desert Battlegrounds
+#      - 1580089750 # Arma Containment Breach
+#      - 1763469776 # SCP 173
+#      - 333310405 # Enhanced Movement
+      - 450814997
+      - 861133494
+      - 583496184
+      - 463939057
+      - 623475643
+      - 962932583
+      - 583544987
+      - 708250744
+      - 767380317
+      - 853743366
+      - 1435263885
+      - 743099837
+      - 820994401
+      - 366425329
+      - 1227179728
+      - 537154025
+      - 582478120
+      - 366423278
+      - 1600293139
+      - 1207709270
+      - 643530417
+      - 721359761
+      - 1569116504
+      - 1378046829
+      - 730310357
+      - 1547762495
+      - 639837898
+      - 615007497
+      - 713709341
+      - 1547016606
+      - 428181330
+      - 855464203
+      - 643744158
+      - 693153082
+      - 701535490
+      - 648172507
+      - 937515516
+      - 605959658
+      - 520618345
+      - 909547724
+      - 1329037386
+      - 333310405
+      - 1136518526
+      - 723217262
+      - 620260972
+      - 820924072
+      - 667953829
+      - 761349672
+      - 1375890861
+      - 648775794
+      - 714149065
+      - 708278910
+      - 1598087521
+      - 620019431
+      - 836147398
+      - 1692037148
+      - 1494115712
+      - 1494127420
+      - 895405887
+      - 850767937
+      - 1527410521
+      - 777069287
+      - 1680471603
     admins:
       - "76561198007051865" # Giggaflop
       - "76561198041702905" # Simpleton216
