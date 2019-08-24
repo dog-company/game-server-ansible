@@ -7,8 +7,8 @@ Wants=network-online.target
 Type=simple
 User=arma
 WorkingDirectory=/home/arma
-ExecStart=/home/arma/arma3server start
-ExecStop=/home/arma/arma3server stop
+ExecStart=/bin/bash /home/arma/arma3server start
+ExecStop=/bin/bash /home/arma/arma3server stop
 Restart=no
 RemainAfterExit=yes   #Assume that the service is running after main process exits with code 0
 
