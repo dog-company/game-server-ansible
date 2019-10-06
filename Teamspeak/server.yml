@@ -26,6 +26,7 @@
       - bc 
       - jq 
       - mariadb-common
+      - python-pip
 
   - name: Download linuxgsm installer
     get_url:
@@ -44,6 +45,16 @@
     args:
       chdir: /home/teamspeak
       creates: /home/teamspeak/serverfiles
+
+  - name: Configure TS3 Server
+    template:
+      src: ts3server.ini
+      dest: /home/teamspeak/serverfiles/ts3server.ini
+
+  - name: Configure TS3 Server MYSQL Settings
+    template:
+      src: mysql.ini
+      dest: /home/teamspeak/serverfiles/mysql.ini
 
   - name: Start TS3
     command: /home/teamspeak/ts3server start

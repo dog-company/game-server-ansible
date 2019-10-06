@@ -1,2 +1,3 @@
 steam_user: "{{ vault_steam_user }}"
 steam_pass: "{{ vault_steam_password }}"
+mysql_pass: "{{ vault_mysql_password }}"
